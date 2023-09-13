@@ -1,4 +1,5 @@
 'use client'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import axios from 'axios'
 import {
@@ -18,26 +19,38 @@ import { useState } from 'react'
 export default function Home() {
 	const [weight, setWeight] = useState<string | null>(null)
 
+	const router = useRouter()
+	const searchParams = useSearchParams()
+	console.log(searchParams.get('id'))
+
+	const searchId = searchParams.get('id')
+
 	const generateAndSetWeight = (): void => {
 		const randomFloat = getRandomFloat()
 		setWeight(randomFloat)
 	}
 
 	const saveWeight = async (): Promise<void> => {
-		if (!weight) return
+		if (!weight) return // You might also want to check for searchId if it's mandatory
 
 		try {
-			const response = await axios.post('BACKEND_ENDPOINT_HERE_YEE_BOYYY', {
-				weight,
-			})
-			console.log('Saved successfully', response.data)
+			const functionResponse = await axios.post(
+				'http://localhost:3001/executeFunction',
+				{
+					searchId: searchId,
+					weight,
+				}
+			)
+			console.log('Function executed:', functionResponse.data)
+			alert('Executed successfully and saved in OnBase')
 		} catch (error) {
-			console.error('Error saving the weight', error)
+			console.error('Error executing the function', error)
+			alert('Failed to execute the function.')
 		}
 	}
 
 	return (
-		<main className='py-12 px-24 bg-slate-700 text-white'>
+		<main className='py-12 px-24 bg-slate-900 text-slate-200'>
 			<Table>
 				<TableCaption>Caluclated Weight: {weight}</TableCaption>
 				<TableHeader>
@@ -64,7 +77,7 @@ export default function Home() {
 			<div className='flex justify-center mt-2'>
 				<Button
 					variant='outline'
-					className='mt-12 mx-2 rounded hover:bg-white hover:text-black'
+					className='mt-12 mx-2 rounded text-black hover:bg-black hover:text-white'
 					onClick={generateAndSetWeight}
 				>
 					Calculate Weight
@@ -72,7 +85,7 @@ export default function Home() {
 
 				<Button
 					variant='outline'
-					className='mt-12 mx-2 rounded hover:bg-white hover:text-black'
+					className='mt-12 mx-2 rounded text-black hover:bg-black hover:text-white'
 					onClick={saveWeight}
 				>
 					Save Weight

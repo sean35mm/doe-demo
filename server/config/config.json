@@ -1,0 +1,13 @@
+{
+  "environment": {
+    "name": "development",
+    "baseuri": "https://npsdm01.eastus.cloudapp.azure.com",
+    "idpbase": "/idp",
+    "apibase": "/api",
+    "grant": "password",
+    "scope": "evolution",
+    "clientid": "34931bb4-94c0-4cea-a30e-9d952b746cc3",
+    "secret": "P@ssw0rd",
+    "tenant": "OnBaseLatest"
+  }
+}
