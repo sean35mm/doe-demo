@@ -75,7 +75,7 @@ app.post('/executeFunction', async (req, res) => {
 	}
 
 	try {
-		await executeFunction(searchId, weight) // Pass the values to the function
+		await executeFunction(searchId, weight)
 		res.status(200).send({ message: 'Function executed successfully.' })
 	} catch (error) {
 		console.error('Error executing the function', error)

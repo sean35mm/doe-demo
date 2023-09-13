@@ -31,7 +31,7 @@ export default function Home() {
 	}
 
 	const saveWeight = async (): Promise<void> => {
-		if (!weight) return // You might also want to check for searchId if it's mandatory
+		if (!weight) return
 
 		try {
 			const functionResponse = await axios.post(
