@@ -35,7 +35,7 @@ export default function Home() {
 
 		try {
 			const functionResponse = await axios.post(
-				'http://localhost:3001/executeFunction',
+				'https://doe-server-rtqm-dev.fl0.io/executeFunction',
 				{
 					searchId: searchId,
 					weight,
